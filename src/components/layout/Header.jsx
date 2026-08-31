@@ -93,15 +93,6 @@ export function Header() {
         className={`nav-overlay${menuOpen ? ' is-open' : ''}`}
         aria-hidden={!menuOpen}
       >
-        <button
-          type="button"
-          className="nav-overlay-close"
-          onClick={closeMenus}
-          aria-label="Close menu"
-        >
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-        </button>
         <nav className="nav-overlay-nav" aria-label="Mobile">
           <ul className="nav-overlay-list">
             {NAV_ITEMS.map((item, index) => (

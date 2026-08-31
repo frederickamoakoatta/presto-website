@@ -43,7 +43,7 @@ export function Capabilities() {
               className="cap-track"
               style={{
                 gap,
-                transform: `translateX(calc(-${index} * ((100% - ${(visible - 1) * gap}px) / ${visible} + ${gap}px)))`,
+                marginLeft: `calc(-${index} * ((100% - ${(visible - 1) * gap}px) / ${visible} + ${gap}px))`,
               }}
             >
               {CAPABILITIES.groups.map((group) => (
