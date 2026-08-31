@@ -800,20 +800,20 @@ nav.navbar.bootsnav.sticked {
   padding: 34px 30px 28px;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 8px;
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
     0 18px 40px rgba(0, 0, 0, 0.28);
   transition: border-color 0.3s ease, background 0.3s ease;
 }
 
 .cap-card:hover {
   border-color: rgba(245, 131, 32, 0.55);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .cap-card-icon {
