@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { CAPABILITIES } from '../../data/home'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 
+const GAP = 24
+
 export function Capabilities() {
   const isDesktop = useMediaQuery('(min-width: 1000px)')
   const isTablet = useMediaQuery('(min-width: 768px)')
+  const isMobile = !isTablet
   const visible = isDesktop ? 3 : isTablet ? 2 : 1
-  const gap = 24
   const maxIndex = Math.max(0, CAPABILITIES.groups.length - visible)
   const [index, setIndex] = useState(0)
 
@@ -27,31 +29,30 @@ export function Capabilities() {
           <p>{CAPABILITIES.intro}</p>
         </div>
 
-        <div className="cap-carousel">
-          <button
-            type="button"
-            className="cap-nav"
-            onClick={() => goTo(index - 1)}
-            disabled={index === 0}
-            aria-label="Previous capabilities"
-          >
-            <i className="fa fa-angle-left" />
-          </button>
+        <div
+          className={`cap-carousel${isMobile ? ' is-swipe' : ''}`}
+          style={{
+            '--cap-gap': `${GAP}px`,
+            '--cap-visible': visible,
+            '--cap-index': isMobile ? 0 : index,
+          }}
+        >
+          {isMobile ? null : (
+            <button
+              type="button"
+              className="cap-nav"
+              onClick={() => goTo(index - 1)}
+              disabled={index === 0}
+              aria-label="Previous capabilities"
+            >
+              <i className="fa fa-angle-left" />
+            </button>
+          )}
 
           <div className="cap-viewport">
-            <div
-              className="cap-track"
-              style={{
-                gap,
-                marginLeft: `calc(-${index} * ((100% - ${(visible - 1) * gap}px) / ${visible} + ${gap}px))`,
-              }}
-            >
+            <div className="cap-track" style={{ gap: GAP }}>
               {CAPABILITIES.groups.map((group) => (
-                <article
-                  key={group.title}
-                  className="cap-card"
-                  style={{ flex: `0 0 calc((100% - ${(visible - 1) * gap}px) / ${visible})` }}
-                >
+                <article key={group.title} className="cap-card">
                   <span className="cap-card-icon" aria-hidden="true">
                     <i className={group.icon} />
                   </span>
@@ -71,7 +72,7 @@ export function Capabilities() {
             </div>
           </div>
 
-          {maxIndex > 0 ? (
+          {isMobile || maxIndex === 0 ? null : (
             <div className="cap-rail" aria-hidden="true">
               <span
                 className="cap-rail-thumb"
@@ -81,17 +82,19 @@ export function Capabilities() {
                 }}
               />
             </div>
-          ) : null}
+          )}
 
-          <button
-            type="button"
-            className="cap-nav"
-            onClick={() => goTo(index + 1)}
-            disabled={index === maxIndex}
-            aria-label="Next capabilities"
-          >
-            <i className="fa fa-angle-right" />
-          </button>
+          {isMobile ? null : (
+            <button
+              type="button"
+              className="cap-nav"
+              onClick={() => goTo(index + 1)}
+              disabled={index === maxIndex}
+              aria-label="Next capabilities"
+            >
+              <i className="fa fa-angle-right" />
+            </button>
+          )}
         </div>
       </div>
     </section>
