@@ -21,10 +21,10 @@ export function Home() {
   return (
     <>
       <Preloader onDone={onReady} />
-        <Header />
-        <Banner />
-        <WhyPresto />
-        <Capabilities />
+      <Header />
+      <Banner />
+      <WhyPresto />
+      <Capabilities />
       <Reveal ready={ready}>
         <Softtribe />
       </Reveal>
@@ -40,7 +40,7 @@ export function Home() {
       <Reveal ready={ready}>
         <Faqs />
       </Reveal>
-        <FinalCta />
+      <FinalCta />
       <Footer />
       <FaqChatWidget />
     </>

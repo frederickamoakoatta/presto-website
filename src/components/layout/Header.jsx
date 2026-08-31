@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { NAV_ITEMS } from '../../data/home'
 import { NavDropdown } from './NavDropdown'
-import { SideMenu } from './SideMenu'
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [sideOpen, setSideOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState(null)
 
   useEffect(() => {
@@ -17,9 +15,27 @@ export function Header() {
   }, [])
 
   useEffect(() => {
-    document.body.classList.toggle('on-side', sideOpen)
-    return () => document.body.classList.remove('on-side')
-  }, [sideOpen])
+    document.body.classList.toggle('nav-locked', menuOpen)
+    return () => document.body.classList.remove('nav-locked')
+  }, [menuOpen])
+
+  useEffect(() => {
+    if (!menuOpen) return undefined
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setMenuOpen(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [menuOpen])
 
   const closeMenus = () => {
     setMenuOpen(false)
@@ -27,44 +43,34 @@ export function Header() {
   }
 
   return (
-    <header id="home">
+    <header id="home" className={menuOpen ? 'is-menu-open' : undefined}>
       <nav
         className={`navbar navbar-default navbar-fixed dark bootsnav shadow-less${
           scrolled ? ' sticked' : ' navbar-transparent'
         }`}
       >
         <div className="container">
-          <div className="attr-nav">
-            <ul>
-              <li className="side-menu">
-                <a
-                  href="#side-menu"
-                  onClick={(event) => {
-                    event.preventDefault()
-                    setSideOpen(true)
-                  }}
-                >
-                  <i className="fa fa-bars" />
-                </a>
-              </li>
-            </ul>
-          </div>
-
           <div className="navbar-header">
             <button
               type="button"
-              className="navbar-toggle"
+              className={`nav-burger${menuOpen ? ' is-open' : ''}`}
               onClick={() => setMenuOpen((current) => !current)}
-              aria-label="Toggle navigation"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
             >
-              <i className="fa fa-bars" />
+              <span className="nav-burger-box" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
             </button>
-            <a className="navbar-brand brand-text" href="#home">
+            <a className="navbar-brand brand-text" href="#home" onClick={closeMenus}>
               Presto <sup className="brand-pos">POS</sup>
             </a>
           </div>
 
-          <div className={`collapse navbar-collapse${menuOpen ? ' in' : ''}`} id="navbar-menu">
+          <div className="collapse navbar-collapse" id="navbar-menu">
             <ul className="nav navbar-nav navbar-right">
               {NAV_ITEMS.map((item) => (
                 <NavDropdown
@@ -80,9 +86,29 @@ export function Header() {
             </ul>
           </div>
         </div>
-
-        <SideMenu open={sideOpen} onClose={() => setSideOpen(false)} />
       </nav>
+
+      <div
+        id="mobile-menu"
+        className={`nav-overlay${menuOpen ? ' is-open' : ''}`}
+        aria-hidden={!menuOpen}
+      >
+        <nav className="nav-overlay-nav" aria-label="Mobile">
+          <ul className="nav-overlay-list">
+            {NAV_ITEMS.map((item, index) => (
+              <li key={item.label}>
+                <a href={item.href} onClick={closeMenus}>
+                  <span className="nav-overlay-index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="nav-overlay-label">{item.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <a className="btn btn-theme effect btn-md nav-overlay-cta" href="#contact" onClick={closeMenus}>
+          Schedule Your Demo Now
+        </a>
+      </div>
     </header>
   )
 }
