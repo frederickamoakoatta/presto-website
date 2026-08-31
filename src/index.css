@@ -1616,7 +1616,7 @@ nav.navbar.bootsnav.sticked {
     color: var(--presto-black);
   }
 
-  header.is-menu-open nav.navbar {
+  header.is-menu-open nav.navbar.bootsnav.navbar-fixed {
     background: transparent !important;
     border-color: transparent !important;
     box-shadow: none !important;
@@ -1698,6 +1698,38 @@ nav.navbar.bootsnav.sticked {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+  }
+
+  .nav-overlay-close {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    right: 18px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .nav-overlay-close span {
+    position: absolute;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: #ffffff;
+  }
+
+  .nav-overlay-close span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .nav-overlay-close span:last-child {
+    transform: rotate(-45deg);
   }
 
   .nav-overlay-list {
