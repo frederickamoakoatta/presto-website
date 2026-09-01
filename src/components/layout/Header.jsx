@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NAV_ITEMS } from '../../data/home'
+import { BrandLogo } from './BrandLogo'
 import { NavDropdown } from './NavDropdown'
 
 export function Header() {
@@ -65,9 +66,7 @@ export function Header() {
                 <span />
               </span>
             </button>
-            <a className="navbar-brand brand-text" href="#home" onClick={closeMenus}>
-              Presto <sup className="brand-pos">POS</sup>
-            </a>
+            <BrandLogo className="navbar-brand" onClick={closeMenus} />
           </div>
 
           <div className="collapse navbar-collapse" id="navbar-menu">

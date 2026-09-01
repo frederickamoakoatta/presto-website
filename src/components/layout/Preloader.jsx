@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { IMAGES } from '../../data/home'
 
 export function Preloader({ onDone }) {
   const [phase, setPhase] = useState('in')
@@ -26,7 +27,7 @@ export function Preloader({ onDone }) {
     <div className={`page-loader${phase === 'out' ? ' is-leaving' : ''}`}>
       <div className="page-loader-inner">
         <div className="page-loader-brand">
-          Presto <sup className="brand-pos">POS</sup>
+          <img src={IMAGES.logo} alt="Presto" />
         </div>
         <div className="page-loader-track" aria-hidden="true">
           <span className="page-loader-fill" />

@@ -1,6 +1,6 @@
 export const IMAGES = {
-  logo: '/assets/img/logo.png',
-  logoLight: '/assets/img/logo-light.png',
+  logo: '/logo/presto_logo.png',
+  logoLight: '/logo/presto_logo.png',
   banner: '/assets/img/2440x1578.png',
   shape: '/assets/img/shape.png',
   thumb: '/assets/img/800x600.png',

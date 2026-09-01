@@ -1,4 +1,5 @@
 import { FOOTER } from '../../data/home'
+import { BrandLogo } from './BrandLogo'
 
 export function Footer() {
   return (
@@ -8,9 +9,7 @@ export function Footer() {
           <div className="f-items title-effect text-light default-padding">
             <div className="col-md-5 col-sm-6 item">
               <div className="f-item address">
-                <a className="brand-text footer-brand" href="#home">
-                  Presto <sup className="brand-pos">POS</sup>
-                </a>
+                <BrandLogo className="footer-brand" />
                 <p>{FOOTER.blurb}</p>
               </div>
             </div>
